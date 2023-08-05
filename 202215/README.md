@@ -7,3 +7,5 @@ This semester includes the following classes:
 - STAT 201
 
 Distribution is not permitted without consent.
+Study purpose only.
+Not responsible for any issues referencing/copying from this repository.
