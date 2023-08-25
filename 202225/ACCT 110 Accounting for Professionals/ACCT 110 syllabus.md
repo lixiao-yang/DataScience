@@ -1,5 +1,5 @@
 # ACCT 110 Accounting for Professionals 
- 	**WINTER  2023**
+**WINTER  2023**
 
 
 ## INSTRUCTOR INFORMATION
