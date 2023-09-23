@@ -1,0 +1,153 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    			% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or epsÂ§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows}
+
+\def\firstcircle{(90:1.75cm) circle (2.5cm)}
+\def\secondcircle{(210:1.75cm) circle (2.5cm)}
+\def\thirdcircle{(330:1.75cm) circle (2.5cm)}
+
+
+%SetFonts
+
+%SetFonts
+
+
+\title{\bf MATH 180 - Homework 2}
+\author{Lixiao Yang - \texttt{ly364@drexel.edu}}
+\date{January 24, 2022}							% Activate to display a given date or no date
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+
+\subsection*{Part a}
+$f(3)=3$
+
+\subsection*{Part b}
+$n=3$ since $f(3)=3$.
+
+\subsection*{Part c}
+$\because \text{Each element in the codomain is in the range}$\\
+$\therefore \text{The function is a suejection}$\\
+$\because \text{Each element in the codomain is the image of at most one element of the domain}$\\
+$\therefore \text{The function is a injection}$\\
+$\therefore \text{The function is a bijection}$
+
+\section*{Question 2}
+
+\subsection*{Part a}
+$\because$ The element $6$ in codomain is not in the range\\
+$\therefore$ The function is not a surjection\\
+$\because$ $f(4)=f(6)=1$\\
+$\therefore$ The function is not a injection\\
+$\therefore$ The function is none of the above functions
+
+\subsection*{Part b}
+$\because$ Each element in the codomain is in the range\\
+$\therefore$ The function is a suejection\\
+$\because$ Each element in the codomain is the image of at most one element of the domain\\
+$\therefore$ The function is a injection\\
+$\therefore$ The function is a bijection
+
+\subsection*{Part c}
+The function can be rewritten as $f(x)=\begin{pmatrix} 1 & 2 & 3 & 4 & 6 \\ 4 & 3 & 2 & 1 & 1 \end{pmatrix}$\\
+$\because$ Range is not equal to codomain\\
+$\therefore$ The function is not a suejection\\
+$\because$ f(4)=f(6)=1\\
+$\therefore$ The function is not a injection\\
+$\therefore$ The function is none of the above functions
+
+
+\section*{Question 3}
+
+	$f_{1}(x)=\begin{pmatrix} 1 & 2 \\ a & a \end{pmatrix}$\\
+	$f_{2}(x)=\begin{pmatrix} 1 & 2 \\ a & b \end{pmatrix}$\\
+	$f_{3}(x)=\begin{pmatrix} 1 & 2 \\ a & c \end{pmatrix}$\\
+	$f_{4}(x)=\begin{pmatrix} 1 & 2 \\ b & a \end{pmatrix}$\\
+	$f_{5}(x)=\begin{pmatrix} 1 & 2 \\ b & b \end{pmatrix}$\\
+	$f_{6}(x)=\begin{pmatrix} 1 & 2 \\ b & c \end{pmatrix}$\\
+	$f_{7}(x)=\begin{pmatrix} 1 & 2 \\ c & a \end{pmatrix}$\\
+	$f_{8}(x)=\begin{pmatrix} 1 & 2 \\ c & b \end{pmatrix}$\\
+	$f_{9}(x)=\begin{pmatrix} 1 & 2 \\ c & c \end{pmatrix}$\\
+	There are 9 functions, in which 6 are injective, 0 are surjective, 0 are bijective.
+
+\section*{Question 4}
+
+	$f(6)=3f(5)=9f(4)=27f(3)=81f(2)=243f(1)=729f(0)=1458$
+
+\section*{Question 5}
+
+	\subsection*{Part a}
+	$\because$ There exists that $f:\{1\}\rightarrow \{1, 2\}$\\
+	$\therefore$ It is possible
+	\subsection*{Part b}
+	$\because$ There exists that $f:\{1, 2\}\rightarrow \{1\}$\\
+	$\therefore$ It is possible
+	\subsection*{Part c}
+	$\because$ There exists that $f:\mathbb{N} \rightarrow \mathbb{N}$ with $f(x)=x+1$\\
+	$\therefore$ It is possible
+	\subsection*{Part d}
+	$\because$ $\forall a\in Y$ is the image of at least one element from the domain\\
+	$\therefore$ $\left\lvert X\right\rvert \geq \left\lvert Y\right\rvert$ and when $f$ is surjective, it must also be injective\\
+	$\therefore$ It is impossible
+	\subsection*{Part e}
+	$\because$ If $f$ is injective, range is euqal to codomain\\
+	$\therefore$ with finite sets X, Y, when $f$ is injective, it must also be surjective\\
+	$\therefore$ It is impossible
+	\subsection*{Part f}
+	$\because$ If $f$ is surjective, domain and codomain must be equal\\
+	$\therefore$ with finite sets X, Y, when $f$ is surjective, it must also be injective\\
+	$\therefore$ It is impossible
+
+\section*{Question 6}
+
+	$7\times 5 \times  12=420$
+
+\section*{Question 7}
+
+	Let $A=\text{watch The The Office}, B=\text{watch Parks and Rec}, C=\text{watch Superstore}$\\
+	Then $|A|=30, |B|=23, |C|=18, |A\cap B|=14, |B\cap C|=12, |A\cap C|=11, |A\cap B \cap C|=7$\\
+	$\therefore |A|+|B|+|C|-|A\cap B|-|B\cap C|-|A\cap C|+|A\cap B \cap C|=41$
+
+\section*{Question 8}
+
+Let $A=\text{multiple of 2}, B=\text{multiple of 3}, C=\text{multiple of 5}$\\
+Then $|A|=400, |B|=266, |C|=160, |A\cap B|=133, |B\cap C|=53, |A\cap C|=80, |A\cap B \cap C|=26$\\
+$\therefore |A|+|B|+|C|-|A\cap B|-|B\cap C|-|A\cap C|+|A\cap B \cap C|=586$
+
+\section*{Question 9}
+
+\subsection*{Part a}
+$10^{6}=1000000$
+\subsection*{Part b}
+$10 \times 9 \times 8 \times 7 \times 6 \times 5 = 151200$
+\subsection*{Part c}
+$10^{3}=1000$
+\subsection*{Part d}
+$10^{3}+10^{3}-1=1999$
+\subsection*{Part e}
+Words with no repeat: $10 \times 9 \times 8 \times 7 \times 6 \times 5 = 151200$\\
+Words with no sub-word "hid": $7 \times 6 \times 5\times 4 = 840$\\
+$151200-840=150360$
+
+\section*{Question 10}
+$\because$ The sum of the digits is even\\
+$\therefore$ The number of the two digits are either odd or even\\
+When digits are odd, let $A=\{1, 3, 5, 7, 9\}, B=\{1, 3, 5, 7, 9\}$, we can get the cartesian product $A \times B =25$\\
+When digits are even, let $A=\{2, 4, 6, 8\}, B=\{0, 2, 4, 6, 8\}$, we can get the cartesian product $A \times B =20$\\
+$\therefore$ There are 45 possibilities.
+
+\end{document}  

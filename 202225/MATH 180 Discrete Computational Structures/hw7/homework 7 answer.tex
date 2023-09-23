@@ -1,0 +1,140 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    			% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or epsÂ§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows}
+
+\def\firstcircle{(90:1.75cm) circle (2.5cm)}
+\def\secondcircle{(210:1.75cm) circle (2.5cm)}
+\def\thirdcircle{(330:1.75cm) circle (2.5cm)}
+
+
+%SetFonts
+
+%SetFonts
+
+
+\title{\bf MATH 180 - Homework 7}
+\author{Lixiao Yang - \texttt{ly364@drexel.edu}}
+\date{March 10, 2023}							% Activate to display a given date or no date
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+
+	\begin{tabular}{cccccc}
+	 \hline
+	 $x$ & $y$ & $x\Leftrightarrow y$ & $x\Rightarrow y$ & $y\Rightarrow x$ & $(x\Rightarrow y)\wedge (y\Rightarrow x)$  \\
+	 \hline
+	 T & T & T & T & T & T \\
+	 T & F & F & F & T & F \\
+	 F & T & F & T & F & F \\
+	 F & F & T & T & T & T \\
+	 \hline
+	\end{tabular}
+
+\section*{Question 2}
+
+	\begin{tabular}{ccccccc}
+	 \hline
+	 $x$ & $y$ & $z$ & $(x\vee y)\Leftrightarrow z$ & $x\Rightarrow z$ & $y\Rightarrow z$ & $(x\Rightarrow z)\wedge (y\Rightarrow z)$  \\
+	 \hline
+	 T & T & T & T & T & T & T \\
+	 T & T & F & F & F & F & F \\
+	 T & F & T & T & T & T & T \\
+	 T & F & F & F & F & T & F \\
+	 F & T & T & T & T & T & T \\
+	 F & T & F & F & T & F & F \\
+	 F & F & T & T & T & T & T \\
+	 F & F & F & T & T & T & T \\
+	 \hline
+	\end{tabular}
+
+\section*{Question 3}
+
+\begin{tabular}{ccccc}
+	\hline
+	$x$ & $y$ & $x\Rightarrow y$ & $x\wedge (x\Rightarrow y)$ & $(x\wedge (x\Rightarrow y))\Rightarrow y$  \\
+	\hline
+	T & T & T & T & T \\
+	T & F & F & F & T \\
+	F & T & T & F & T \\
+	F & F & T & F & T \\
+	\hline
+   \end{tabular} 
+
+\section*{Question 4}
+
+   Let $m,n$ be an interger\\
+   $\therefore$ $x, y$ can be written as $x=2m+1, y=2n$.\\
+   $\therefore x+y=2m+2n+1=2(m+n)+1$\\
+   $\therefore$ For $x,y\in \mathbb{Z}, x+y$ is an odd integer.
+
+\section*{Question 5}
+
+   Let $m,n$ be an interger\\
+   $\therefore$ $x, y$ can be written as $x=2m+1, y=2n+1$.\\
+   $\therefore x\times y=(2m+1)(2n+1)=4mn+2m+2n+1=2(2mn+m+n)+1$\\
+   $\therefore$ The product of two odd integers is odd.
+
+\section*{Question 6}
+
+   Let $k\in \mathbb{Z} $\\
+   $\therefore$ $a|b$ can be written as $b=ka$\\
+   $\therefore bc=(ka)c=a(kc)$\\
+   $\therefore$ If $a|b$ then $a|bc$.\\
+
+\section*{Question 7}
+
+   Let $j,k\in \mathbb{Z} $\\
+   $\therefore b=ja, d=kc$\\
+   $\therefore bd=(ja)(kc)=jk(ac)$\\
+   $\therefore$ If $a|b$ and $c|d$, then $ac|bd$.
+
+\section*{Question 8}
+
+   Let $n=m+k$ for $m^{2}, n^{2}$.\\
+   $\therefore n^{2}-m^{2}=2mk+k^{2}$ for some $k\geqslant 2$.\\
+   $\because 2mk+k^{2}=k(2m+k)$\\
+   $\therefore$ The difference between distinct, nonconsecutive perfect squares is composite.
+
+\section*{Question 9}
+
+   The statement is equal to: $(a, b\in \mathbb{R})\wedge (ab=0)\Rightarrow (a=0)\vee (b=0)$\\
+   Its contradiction: $\lnot (a, b\in \mathbb{R})\vee \lnot(ab=0)\Rightarrow (a=0)\vee (b=0)$.\\
+   If $\lnot (a, b\in \mathbb{R})$, then $a, b\neq 0$.\\
+   If $ab\neq 0$, then $a,b\neq 0$.\\
+   So the contradiction is false, the statement is true.
+
+\section*{Question 10}
+
+   \subsection*{Part a}
+   Suppose not. Then $\sqrt{3}$ is equal to a fraction $\frac{a}{b}$.\\
+   Without loss of generality, assume $\frac{a}{b}$ is in lowest terms. So,\\
+   $$3=\frac{a^{2}}{b^{2}}$$\\
+   $$3b^{2}=a^{2}$$\\
+   Thus $a^{2}$ is divisible by 3. So $a=3k$ for some integer k, and $a^{2}=9k^{2}$. We then have,\\
+   $3b^{2}=9k^{2}, b^{2}=3k^{2}$ which is a contradiction.\\
+   $\therefore \sqrt{3}$ is irrational.
+
+   \subsection*{Part b}
+   Suppose not. Then $\sqrt[3]{2}$ is equal to a fraction $\frac{a}{b}$.\\
+   Without loss of generality, assume $\frac{a}{b}$ is in lowest terms. So,\\
+   $$2=\frac{a^{3}}{b^{3}}$$\\
+   $$2b^{3}=a^{3}$$\\
+   Thus $a^{3}$ is even. So $a=2k$ for some integer $k$, and $a^{3}=8k^{3}$. We then have,\\
+   $2b^{3}=8k^{3}, b^{3}=2k^{3}$ which is a contradiction.\\
+   $\therefore \sqrt[3]{2}$ is irrational.
+
+\end{document}  

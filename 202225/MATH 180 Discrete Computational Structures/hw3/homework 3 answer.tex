@@ -1,0 +1,107 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+\usepackage[parfill]{parskip}    			% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or epsÂ§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath, amsfonts}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{arrows}
+
+\def\firstcircle{(90:1.75cm) circle (2.5cm)}
+\def\secondcircle{(210:1.75cm) circle (2.5cm)}
+\def\thirdcircle{(330:1.75cm) circle (2.5cm)}
+
+
+%SetFonts
+
+%SetFonts
+
+
+\title{\bf MATH 180 - Homework 3}
+\author{Lixiao Yang - \texttt{ly364@drexel.edu}}
+\date{January 31, 2022}							% Activate to display a given date or no date
+
+\begin{document}
+
+\maketitle
+
+\section*{Question 1}
+
+	\subsection*{Part 1}
+	$|\mathcal{P} (S)|=2^{8}=256$
+
+	\subsection*{Part 2}
+	$\binom{8}{6} =28$.
+
+	\subsection*{Part 3}
+	$\because$ The only possible number for the last 2 elements are \{1, 3, 5, 8\}.\\
+	$\therefore\binom{4}{2} =6$.
+
+\section*{Question 2}
+
+	\subsection*{Part 1}
+	$\because$ There are 8 bits left with starting substring 1101.\\
+	$\therefore 2^{8}=256$
+
+	\subsection*{Part 2}
+	$\because$ There are three 1's in 1101.\\
+	$\therefore$ The weight for the rest string is 3.\\
+	$\therefore \binom{8}{3} =56$
+
+
+\section*{Question 3}
+
+	\subsection*{Part 1}
+	$\because$ The paths need to go up 11 times and go right 8 times.\\
+	$\therefore$ There are 19 moves total and 8 of them is go right.\\
+	$\therefore \binom{19}{8} =75582$
+
+	\subsection*{Part 2}
+	$\because$ The paths need to go up 4 times and go right 4 times to $(5,6)$.\\
+	$\therefore \binom{8}{4} =70$\\
+	$\because$ The paths need to go up 7 times and go right 4 times to $(9,13)$.\\
+	$\therefore \binom{11}{4} =330$\\
+	$\therefore$ There are $330\times 70=23100$ paths in total.
+
+	\subsection*{Part 3}
+	$75582-23100=52482$\\
+	$\therefore$ There are 52482 paths.
+
+\section*{Question 4}
+
+	$\binom{19}{14}\times 3^{5}=11628 \times 243=2825604$
+
+\section*{Question 5}
+
+	$\because$ Each circle equals to 8 line permutations.\\
+	$\therefore \frac{8!}{8}=5040$
+
+
+\section*{Question 6}
+
+	1. $5!=120$\\
+	2. $\frac{7!}{2!\times 2!\times 2!}=630$\\
+	3. $\frac{11!}{3!}=6652800$
+
+\section*{Question 7}
+
+	For pants: $\binom{4}{2}=6$\\
+	For shirts: $\binom{7}{3}=35$\\
+	For sweaters: $\binom{3}{1}=3$\\
+	$\therefore$ There are $6\times 35\times 3=630$ ways for him.
+
+\section*{Question 8}
+
+	\subsection*{Part 1}
+	There are $15^{8}=2562890625$ functions.
+
+	\subsection*{Part 2}
+	There are $15\times 14\times 13\times 12\times 11\times 10\times 9\times 8=259459200$ injective functions.
+
+\end{document}  
