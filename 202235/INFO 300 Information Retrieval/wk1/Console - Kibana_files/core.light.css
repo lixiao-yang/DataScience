@@ -1,0 +1,82 @@
+.header-global-wrapper {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10; }
+
+.header-global-wrapper + .app-wrapper:not(.hidden-chrome) {
+  top: 48px;
+  left: 48px; }
+  .header-global-wrapper + .app-wrapper:not(.hidden-chrome) .euiFlyout {
+    top: 48px;
+    height: calc(100% - 48px); }
+
+@media only screen and (max-width: 574px) {
+  .header-global-wrapper + .app-wrapper:not(.hidden-chrome) {
+    left: 0; } }
+
+@media only screen and (min-width: 575px) and (max-width: 767px) {
+  .header-global-wrapper + .app-wrapper:not(.hidden-chrome) {
+    left: 0; } }
+
+.chrHeaderHelpMenu__version {
+  text-transform: none; }
+
+.chrHeaderBadge__wrapper {
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  margin-right: 16px; }
+
+/**
+ * 1. Position this loader on top of the content.
+ * 2. Make sure indicator isn't wider than the screen.
+ */
+.kbnLoadingIndicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  overflow: hidden;
+  height: 2px; }
+  .kbnLoadingIndicator.hidden {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition-delay: 0.25s;
+            transition-delay: 0.25s; }
+
+.kbnLoadingIndicator__bar {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 1001;
+  visibility: visible;
+  display: block;
+  -webkit-animation: kbn-animate-loading-indicator 2s linear infinite;
+          animation: kbn-animate-loading-indicator 2s linear infinite;
+  background-color: #f19dc7;
+  background-image: -webkit-gradient(linear, left top, right top, from(#e22f88), color-stop(50%, #e22f88), color-stop(50%, #f19dc7), to(#f19dc7));
+  background-image: linear-gradient(to right, #e22f88 0%, #e22f88 50%, #f19dc7 50%, #f19dc7 100%);
+  background-repeat: repeat-x;
+  background-size: 400px 400px;
+  width: 200%; }
+
+@-webkit-keyframes kbn-animate-loading-indicator {
+  from {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+  to {
+    -webkit-transform: translateX(-400px);
+            transform: translateX(-400px); } }
+
+@keyframes kbn-animate-loading-indicator {
+  from {
+    -webkit-transform: translateX(0);
+            transform: translateX(0); }
+  to {
+    -webkit-transform: translateX(-400px);
+            transform: translateX(-400px); } }
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9jb3JlL3B1YmxpYy9jaHJvbWUvdWkvaGVhZGVyL19pbmRleC5zY3NzIiwiLi4vbm9kZV9tb2R1bGVzL0BlbGFzdGljL2V1aS9zcmMvY29tcG9uZW50cy9oZWFkZXIvX3ZhcmlhYmxlcy5zY3NzIiwiLi4vbm9kZV9tb2R1bGVzL0BlbGFzdGljL2V1aS9zcmMvZ2xvYmFsX3N0eWxpbmcvbWl4aW5zL19yZXNwb25zaXZlLnNjc3MiLCIuLi9ub2RlX21vZHVsZXMvQGVsYXN0aWMvZXVpL3NyYy9nbG9iYWxfc3R5bGluZy92YXJpYWJsZXMvX3NpemUuc2NzcyIsIi4uL3NyYy9jb3JlL3B1YmxpYy9jaHJvbWUvdWkvX2xvYWRpbmdfaW5kaWNhdG9yLnNjc3MiLCJzcmMvY29yZS9wdWJsaWMvaW5kZXguc2NzcyIsIi4uL25vZGVfbW9kdWxlcy9AZWxhc3RpYy9ldWkvc3JjL2dsb2JhbF9zdHlsaW5nL3ZhcmlhYmxlcy9fel9pbmRleC5zY3NzIiwiLi4vbm9kZV9tb2R1bGVzL0BlbGFzdGljL2V1aS9zcmMvZ2xvYmFsX3N0eWxpbmcvZnVuY3Rpb25zL19jb2xvcnMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFFQTtFQUNFLFdBQVc7RUFDWCxlQUFlO0VBQ2YsTUFBTTtFQUNOLFdBQVcsRUFBQTs7QUFHYjtFQUNFLFNDSjBDO0VESzFDLFVDTDBDLEVBQUE7RURHNUM7SUFPSSxTQ1Z3QztJRFd4Qyx5QkFBMkMsRUFBQTs7QUVtQnJDO0VGYlI7SUFDRSxPQUFPLEVBQUEsRUFDUjs7QUVnQk87RUZsQlI7SUFDRSxPQUFPLEVBQUEsRUFDUjs7QUFHSDtFQUNFLG9CQUFvQixFQUFBOztBQUd0QjtFQUNFLDBCQUFrQjtNQUFsQiwyQkFBa0I7VUFBbEIsa0JBQWtCO0VBQ2xCLGtCR2xDZ0IsRUFBQTs7QUNJbEI7OztFQzJCRTtBRHZCRjtFQUNFLGVBQWU7RUFDZixNQUFNO0VBQ04sT0FBTztFQUNQLFFBQVE7RUFDUixhRUd3QjtFRkZ4QixnQkFBZ0I7RUFDaEIsV0FBc0IsRUFBQTtFQVB4QjtJQVVJLGtCQUFrQjtJQUNsQixVQUFVO0lBQ1YsK0JBQXVCO1lBQXZCLHVCQUF1QixFQUFBOztBQUl6QjtFQUNFLE1BQU07RUFDTixPQUFPO0VBQ1AsUUFBUTtFQUNSLFNBQVM7RUFDVCxrQkFBa0I7RUFDbEIsYUVkc0I7RUZldEIsbUJBQW1CO0VBQ25CLGNBQWM7RUFDZCxtRUFBMkQ7VUFBM0QsMkRBQTJEO0VBQzNELHlCR2hDMkM7RUhpQzNDLCtJQUtHO0VBTEgsK0ZBS0c7RUFDSCwyQkFBMkI7RUFDM0IsNEJBMUNnRDtFQTJDaEQsV0FBVyxFQUFBOztBQUdiO0VBQ0U7SUFBTyxnQ0FBd0I7WUFBeEIsd0JBQXdCLEVBQUE7RUFDL0I7SUFBSyxxQ0FBMEQ7WUFBMUQsNkJBQTBELEVBQUEsRUFBQTs7QUFGakU7RUFDRTtJQUFPLGdDQUF3QjtZQUF4Qix3QkFBd0IsRUFBQTtFQUMvQjtJQUFLLHFDQUEwRDtZQUExRCw2QkFBMEQsRUFBQSxFQUFBIiwiZmlsZSI6InNyYy9jb3JlL3B1YmxpYy9pbmRleC5zY3NzIn0= */
