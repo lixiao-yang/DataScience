@@ -1,0 +1,55 @@
+GET _search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+PUT /ly364_info300_202203_scripts
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "lx_analyzer":{
+          "type": "standard",
+          "stopwords": "_english_",
+          "max_token_length": 10
+        }
+      }
+    }
+  }
+}
+
+PUT /ly364_info300_202203_scripts/_mapping
+{
+   "properties": {
+     "massage":{
+       "type": "text",
+       "analyzer": "lx_analyzer",
+       "search_analyzer": "lx_analyzer"
+     }
+   }
+}
+
+PUT /ly364_info300_202203_scripts/_doc/1
+{
+  "message": "The QUICK brown-foxes jumped over the lazydogandbear."
+}
+
+GET /ly364_info300_202203_scripts/_search
+{
+  "query":{
+    "term": {
+      "message": "the"
+    }
+  }
+}
+
+GET /ly364_info300_202203_scripts/_search
+{
+  "query":{
+    "term": {
+      "message": "lazydogand"
+    }
+  }
+}

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Index mappings</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="index-mappings">Index mappings</h1>
+<p>Before importing data, create an index with the following mappings:</p>
+<pre><code class="language-json"><div>PUT /wk77_fake
+{
+  <span class="hljs-attr">&quot;mappings&quot;</span>:{
+    <span class="hljs-attr">&quot;properties&quot;</span> : {
+      <span class="hljs-attr">&quot;author&quot;</span>: {
+        <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;text&quot;</span>,
+        <span class="hljs-attr">&quot;analyzer&quot;</span>:<span class="hljs-string">&quot;standard&quot;</span>
+      },
+      <span class="hljs-attr">&quot;published&quot;</span>: {
+        <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;date&quot;</span>
+      },
+      <span class="hljs-attr">&quot;title&quot;</span> : {
+        <span class="hljs-attr">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>,
+        <span class="hljs-attr">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;english&quot;</span>
+      },
+      <span class="hljs-attr">&quot;content&quot;</span> : {
+        <span class="hljs-attr">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>,
+        <span class="hljs-attr">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;english&quot;</span>
+      },
+      <span class="hljs-attr">&quot;spam_score&quot;</span>: {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;float&quot;</span>
+      },
+      <span class="hljs-attr">&quot;likes&quot;</span>: {
+        <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;integer&quot;</span>
+      }
+    }
+  }
+}
+</div></code></pre>
+<h1 id="import-and-index-data">Import and Index Data</h1>
+<p>Import data in fake.xlsx:</p>
+<ol>
+<li>Change &quot;text&quot; column name to &quot;content&quot;;</li>
+<li>Use XSLX / CSV Import on Kibana to import the data to index /<em>yourusername_fake</em></li>
+</ol>
+<h1 id="basic-query">Basic Query</h1>
+<p>Search &quot;Presidential Election&quot; on the <em>title</em> and <em>content</em> fields.</p>
+<pre><code class="language-json"><div>GET /wk77_fake/_search
+{
+  <span class="hljs-attr">&quot;from&quot;</span> : <span class="hljs-number">0</span>, <span class="hljs-attr">&quot;size&quot;</span> : <span class="hljs-number">3</span>,
+  <span class="hljs-attr">&quot;query&quot;</span>: {
+    <span class="hljs-attr">&quot;multi_match&quot;</span> : {
+      <span class="hljs-attr">&quot;query&quot;</span>:    <span class="hljs-string">&quot;Presidential Election&quot;</span>,
+      <span class="hljs-attr">&quot;fields&quot;</span>: [<span class="hljs-string">&quot;title&quot;</span>, <span class="hljs-string">&quot;content&quot;</span> ]
+    }
+  }
+}
+</div></code></pre>
+<h1 id="boost-query">Boost Query</h1>
+<p>Boost the <em>title</em> field for a query:</p>
+<pre><code class="language-json"><div>GET /wk77_fake/_search
+{
+  <span class="hljs-attr">&quot;from&quot;</span> : <span class="hljs-number">0</span>, <span class="hljs-attr">&quot;size&quot;</span> : <span class="hljs-number">3</span>,
+  <span class="hljs-attr">&quot;query&quot;</span>: {
+    <span class="hljs-attr">&quot;multi_match&quot;</span> : {
+      <span class="hljs-attr">&quot;query&quot;</span>:    <span class="hljs-string">&quot;Presidential Election&quot;</span>,
+      <span class="hljs-attr">&quot;fields&quot;</span>: [<span class="hljs-string">&quot;title^10&quot;</span>, <span class="hljs-string">&quot;content&quot;</span> ]
+    }
+  }
+}
+</div></code></pre>
+<p><strong>^10</strong> is to boost the title field 10 times.</p>
+<h1 id="update-related-fields-to-avoid-0-values">Update Related Fields to Avoid 0 Values</h1>
+<p>Before we continue, we would like to correct some values in the index.</p>
+<p>First, let's make sure we have non-zero values for <strong>likes</strong> (by adding 1):</p>
+<pre><code class="language-json"><div>POST /wk77_fake/_update_by_query
+{
+  <span class="hljs-attr">&quot;script&quot;</span> : {
+      <span class="hljs-attr">&quot;source&quot;</span>: <span class="hljs-string">&quot;ctx._source.likes = Integer.parseInt(ctx._source.likes) + 1;&quot;</span>,
+      <span class="hljs-attr">&quot;lang&quot;</span>: <span class="hljs-string">&quot;painless&quot;</span>,
+      <span class="hljs-attr">&quot;params&quot;</span> : {
+          <span class="hljs-attr">&quot;amount&quot;</span> : <span class="hljs-number">1</span>
+      }
+  },
+  <span class="hljs-attr">&quot;query&quot;</span>: {
+    <span class="hljs-attr">&quot;match_all&quot;</span>: {}
+  }
+}
+</div></code></pre>
+<p>Second, we do likewise to the <strong>spam_score</strong> field (by adding a small value 0.00001):</p>
+<pre><code class="language-json"><div>POST /wk77_fake/_update_by_query
+{
+  <span class="hljs-attr">&quot;script&quot;</span> : {
+      <span class="hljs-attr">&quot;source&quot;</span>: <span class="hljs-string">&quot;ctx._source.spam_score = Float.parseFloat(ctx._source.spam_score) + params.amount;&quot;</span>,
+      <span class="hljs-attr">&quot;lang&quot;</span>: <span class="hljs-string">&quot;painless&quot;</span>,
+      <span class="hljs-attr">&quot;params&quot;</span> : {
+          <span class="hljs-attr">&quot;amount&quot;</span> : <span class="hljs-number">0.00001</span>
+      }
+  },
+  <span class="hljs-attr">&quot;query&quot;</span>: {
+    <span class="hljs-attr">&quot;match_all&quot;</span>: {}
+  }
+}
+</div></code></pre>
+<h1 id="second-index">Second Index</h1>
+<p>Now we will create a second index for custom similarity and scoring functions.</p>
+<h2 id="custom-similarity">Custom Similarity</h2>
+<p>Custom similarities with BM25 and DFR (divergence from randomness):</p>
+<pre><code class="language-json"><div>PUT /wk77_fake2
+{
+  <span class="hljs-attr">&quot;settings&quot;</span>: {
+    <span class="hljs-attr">&quot;index&quot;</span>: {
+      <span class="hljs-attr">&quot;similarity&quot;</span>: {
+        <span class="hljs-attr">&quot;my_bm25&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;BM25&quot;</span>,
+          <span class="hljs-attr">&quot;k1&quot;</span>: <span class="hljs-number">2.0</span>,
+          <span class="hljs-attr">&quot;b&quot;</span>:<span class="hljs-number">1.0</span>
+        },
+        <span class="hljs-attr">&quot;my_dfr&quot;</span>: {
+          <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;DFR&quot;</span>,
+          <span class="hljs-attr">&quot;basic_model&quot;</span>: <span class="hljs-string">&quot;g&quot;</span>,
+          <span class="hljs-attr">&quot;after_effect&quot;</span>: <span class="hljs-string">&quot;l&quot;</span>,
+          <span class="hljs-attr">&quot;normalization&quot;</span>: <span class="hljs-string">&quot;h2&quot;</span>,
+          <span class="hljs-attr">&quot;normalization.h2.c&quot;</span>: <span class="hljs-string">&quot;3.0&quot;</span>
+        }
+      }
+    }
+  }
+}
+</div></code></pre>
+<h2 id="fields-with-different-similarity">Fields with different Similarity</h2>
+<p><strong>Content</strong> field using BM25:</p>
+<pre><code class="language-json"><div>PUT /wk77_fake2/_mapping
+{
+  <span class="hljs-attr">&quot;properties&quot;</span> : {
+    <span class="hljs-attr">&quot;content&quot;</span> : {
+      <span class="hljs-attr">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>,
+      <span class="hljs-attr">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;english&quot;</span>,
+      <span class="hljs-attr">&quot;similarity&quot;</span> : <span class="hljs-string">&quot;my_bm25&quot;</span>
+    }
+  }
+}
+</div></code></pre>
+<p><strong>Title</strong> field using DFR:</p>
+<pre><code class="language-json"><div>PUT /wk77_fake2/_mapping
+{
+  <span class="hljs-attr">&quot;properties&quot;</span> : {
+    <span class="hljs-attr">&quot;title&quot;</span> : {
+      <span class="hljs-attr">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>,
+      <span class="hljs-attr">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;english&quot;</span>,
+      <span class="hljs-attr">&quot;similarity&quot;</span> : <span class="hljs-string">&quot;my_bm25&quot;</span>
+    }
+  }
+}
+</div></code></pre>
+<p><strong>Author</strong> field using boolean similarity:</p>
+<pre><code class="language-json"><div>PUT /wk77_fake2/_mapping
+{
+  <span class="hljs-attr">&quot;properties&quot;</span> : {
+    <span class="hljs-attr">&quot;author&quot;</span> : {
+      <span class="hljs-attr">&quot;type&quot;</span> : <span class="hljs-string">&quot;text&quot;</span>,
+      <span class="hljs-attr">&quot;analyzer&quot;</span>: <span class="hljs-string">&quot;standard&quot;</span>,
+      <span class="hljs-attr">&quot;similarity&quot;</span> : <span class="hljs-string">&quot;boolean&quot;</span>
+    }
+  }
+}
+</div></code></pre>
+<p><strong>Likes</strong> field as a rank feature (positive), which will be used to boost a score:</p>
+<pre><code class="language-json"><div>PUT /wk77_fake2/_mapping
+{
+  <span class="hljs-attr">&quot;properties&quot;</span> : {
+    <span class="hljs-attr">&quot;likes&quot;</span> : {
+      <span class="hljs-attr">&quot;type&quot;</span> : <span class="hljs-string">&quot;rank_feature&quot;</span>,
+      <span class="hljs-attr">&quot;positive_score_impact&quot;</span>: <span class="hljs-literal">true</span>
+    }
+  }
+}
+</div></code></pre>
+<p><strong>Spam_score</strong> field as a rank feature (negative), which will contribute negatively to a score if specified:</p>
+<pre><code class="language-json"><div>PUT /wk77_fake2/_mapping
+{
+  <span class="hljs-attr">&quot;properties&quot;</span> : {
+    <span class="hljs-attr">&quot;spam_score&quot;</span> : {
+      <span class="hljs-attr">&quot;type&quot;</span> : <span class="hljs-string">&quot;rank_feature&quot;</span>,
+      <span class="hljs-attr">&quot;positive_score_impact&quot;</span>: <span class="hljs-literal">false</span>
+    }
+  }
+}
+</div></code></pre>
+<h1 id="load-data-to-the-second-index">Load Data to the Second Index</h1>
+<p>You can use one of the methods here to reload data into the second index:</p>
+<ol>
+<li>Use XLSX / CSV import to import the data;</li>
+<li>Use the _reindex API</li>
+</ol>
+<h2 id="lets-use-_reindex">Let's Use _reindex</h2>
+<p>Copy data from the first index to the second index:</p>
+<pre><code class="language-json"><div>POST _reindex
+{
+  <span class="hljs-attr">&quot;source&quot;</span>: {
+    <span class="hljs-attr">&quot;index&quot;</span>: <span class="hljs-string">&quot;wk77_fake&quot;</span>
+  },
+  <span class="hljs-attr">&quot;dest&quot;</span>: {
+    <span class="hljs-attr">&quot;index&quot;</span>: <span class="hljs-string">&quot;wk77_fake2&quot;</span>
+  }
+}
+</div></code></pre>
+<p>In case there is any problem and you need to delete indexed data:</p>
+<pre><code class="language-json"><div>POST /wk77_fake2/_delete_by_query
+{
+  <span class="hljs-attr">&quot;query&quot;</span>: {
+    <span class="hljs-attr">&quot;match_all&quot;</span>: {}
+  }
+}
+</div></code></pre>
+<p>You may do the above to remove data and reindex them.</p>
+<h1 id="queries-on-the-second-index">Queries on the second index</h1>
+<h2 id="query">Query</h2>
+<p>Test this query on the <strong>title</strong> field.</p>
+<p>Note this is using different similarities in the second index</p>
+<pre><code class="language-json"><div>GET /wk77_fake2/_search
+{
+  <span class="hljs-attr">&quot;from&quot;</span> : <span class="hljs-number">0</span>, <span class="hljs-attr">&quot;size&quot;</span> : <span class="hljs-number">3</span>,
+  <span class="hljs-attr">&quot;query&quot;</span>: {
+    <span class="hljs-attr">&quot;multi_match&quot;</span> : {
+      <span class="hljs-attr">&quot;query&quot;</span>:    <span class="hljs-string">&quot;Votes&quot;</span>,
+      <span class="hljs-attr">&quot;fields&quot;</span>: [<span class="hljs-string">&quot;title&quot;</span>]
+    }
+  }
+}
+</div></code></pre>
+<p>In what order are documents ranked?</p>
+<h2 id="query-with-rank-features">Query with Rank Features</h2>
+<p>Now try the same query with a <strong>rank feature</strong>:</p>
+<pre><code class="language-json"><div>GET /wk77_fake2/_search
+{
+  <span class="hljs-attr">&quot;query&quot;</span>: {
+    <span class="hljs-attr">&quot;bool&quot;</span>: {
+      <span class="hljs-attr">&quot;must&quot;</span>: [
+        {
+          <span class="hljs-attr">&quot;match&quot;</span>: {
+            <span class="hljs-attr">&quot;title&quot;</span>: <span class="hljs-string">&quot;Votes&quot;</span>
+          }
+        }
+      ],
+      <span class="hljs-attr">&quot;should&quot;</span>: {
+        <span class="hljs-attr">&quot;rank_feature&quot;</span>: {
+          <span class="hljs-attr">&quot;field&quot;</span>: <span class="hljs-string">&quot;likes&quot;</span>,
+          <span class="hljs-attr">&quot;saturation&quot;</span>: {
+            <span class="hljs-attr">&quot;pivot&quot;</span>: <span class="hljs-number">5</span>
+          }
+        }
+      }
+    }
+  }
+}
+</div></code></pre>
+<p>Is there any difference in the ranking?</p>
+
+    </body>
+    </html>

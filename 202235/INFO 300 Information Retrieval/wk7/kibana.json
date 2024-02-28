@@ -1,0 +1,198 @@
+GET /ly364_info300_fake2/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match": {
+            "title": "Votes"
+          }
+        }
+      ],
+      "should": [
+        {
+          "rank_feature": {
+            "field": "likes",
+            "saturation": {
+              "pivot": 5
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+
+GET /ly364_info300_fake2/_search
+{
+  "from": 0, "size": 3,
+  "query": {
+    "match": {
+      "title": "Votes"
+    }
+  }
+}
+
+GET /ly364_info300_fake2/_search
+{
+  "from": 0, "size": 3,
+  "query": {
+    "match": {
+      "title": "Votes"
+    }
+  }
+}
+
+POST _reindex
+{
+  "source": {
+    "index": "ly364_info300_fake1"
+  },
+  "dest": {
+    "index": "ly364_info300_fake2"
+  }
+}
+
+GET /ly364_info300_fake2/_count
+
+PUT /ly364_info300_fake2/_mapping
+{
+  "properties": {
+    "spam_score": {
+      "type": "rank_feature",
+      "positive_score_impact": false
+    }
+  }
+}
+
+PUT /ly364_info300_fake2/_mapping
+{
+  "properties": {
+    "likes": {
+      "type": "rank_feature",
+      "positive_score_impact": true
+    }
+  }
+}
+
+PUT /ly364_info300_fake2/_mapping
+{
+  "properties": {
+    "author": {
+      "type": "text",
+      "analyzer": "standard",
+      "similarity": "boolean"
+    }
+  }
+}
+
+PUT /ly364_info300_fake2/_mapping
+{
+  "properties": {
+    "title": {
+      "type": "text",
+      "analyzer": "english",
+      "similarity": "my_bm25"
+    }
+  }
+}
+
+PUT /ly364_info300_fake2/_mapping
+{
+  "properties": {
+    "content": {
+      "type": "text",
+      "analyzer": "english",
+      "similarity": "my_bm25"
+    }
+  }
+}
+
+PUT /ly364_info300_fake2
+{
+  "settings": {
+    "index": {
+      "similarity": {
+        "my_bm25": {
+          "type": "BM25",
+          "k1": 2.0,
+          "b": 1.0
+        },
+        "my_dfr": {
+          "type": "DFR",
+          "basic_model": "g",
+          "after_effect": "l",
+          "normalization": "h2",
+          "normalization.h2.c": "3.0"
+        }
+      }
+    }
+  }
+}
+
+POST /ly364_info300_fake1/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.spam_score = Float.parseFloat(ctx._source.spam_score) + params.amount",
+    "params": {
+      "amount": 0.000001
+    }
+  },
+  "query": {
+    "match_all": {}
+  }
+
+}
+
+GET /ly364_info300_fake1/_update_by_query
+{
+  "query": {
+    "match_all": {}
+  },
+  "script": {
+    "source": "ctx._source.likes = Integer.parseInt(ctx._source.likes) + 1;"
+  }
+}
+
+GET /ly364_info300_fake1/_search
+{
+  "from": 0, "size": 3,
+  "query": {
+    "multi_match": {
+      "query": "Presidential Election",
+      "fields": ["title^10", "content"]
+    }
+  }
+}
+
+GET /ly364_info300_fake/_mapping
+
+
+PUT /ly364_info300_fake
+{
+  "mappings":{
+    "properties" : {
+      "author": {
+        "type":"content",
+        "analyzer":"standard"
+      },
+      "published": {
+        "type":"date"
+      },
+      "title" : {
+        "type" : "content",
+        "analyzer": "english"
+      },
+      "content" : {
+        "type" : "content",
+        "analyzer": "english"
+      },
+      "spam_score": {
+        "type": "float"
+      },
+      "likes": {
+        "type": "integer"
+      }
+    }
+  }
+}
