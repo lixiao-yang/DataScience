@@ -1,0 +1,11 @@
+[
+  {
+    "author":"Weimao Ke and Javed Mostafa",
+    "title":"Scalability of findability: effective and efficient IR operations in large information networks",
+    "abstract":"It is crucial to study basic principles that support adaptive and scalable retrieval functions in large networked environments such as the Web, where information is distributed among dynamic systems. We conducted experiments on decentralized IR operations on various scales of information networks and analyzed effectiveness, efficiency, and scalability of various search methods. Results showed",
+    "citations":12
+  },
+  {
+
+  }
+]

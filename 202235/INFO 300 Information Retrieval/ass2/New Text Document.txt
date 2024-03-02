@@ -1,0 +1,48 @@
+GET /ly364_info300_articles/_search
+{
+  "query": {
+    "match": {
+      "abstract": {
+        "query": "machine optimal deep"
+      }
+    }
+  }
+}
+
+GET /ly364_info300_articles/_termvectors
+{
+  "doc": {
+    "abstract": "machine optimal deep"
+  },
+  "term_statistics": true,
+  "field_statistics": false,
+  "positions": false,
+  "offsets": false
+}
+
+GET /ly364_info300_articles/_termvectors/8
+{
+  "fields": ["abstract"],
+  "term_statistics": true,
+  "field_statistics": false,
+  "positions": false,
+  "offsets": false
+}
+
+GET /ly364_info300_articles/_termvectors/6
+{
+  "fields": ["abstract"],
+  "term_statistics": true,
+  "field_statistics": false,
+  "positions": false,
+  "offsets": false
+}
+
+GET /ly364_info300_articles/_termvectors/20
+{
+  "fields": ["abstract"],
+  "term_statistics": true,
+  "field_statistics": false,
+  "positions": false,
+  "offsets": false
+}
